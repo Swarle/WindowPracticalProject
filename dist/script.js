@@ -144,6 +144,45 @@ const forms = (modalState = null) => {
 
 /***/ }),
 
+/***/ "./src/js/modules/image.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/image.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const image = () => {
+  const workFlow = document.querySelector('.works'),
+    imageModal = document.createElement('div'),
+    bigImage = document.createElement('img');
+  imageModal.classList.add('popup');
+  workFlow.appendChild(imageModal);
+  imageModal.style.justifyContent = 'center';
+  imageModal.style.alignItems = 'center';
+  imageModal.style.display = 'none';
+  imageModal.appendChild(bigImage);
+  workFlow.addEventListener('click', e => {
+    e.preventDefault();
+    const target = e.target;
+    if (target && target.classList.contains('preview')) {
+      const path = target.parentNode.getAttribute('href');
+      bigImage.setAttribute('src', path);
+      imageModal.style.display = 'flex';
+    }
+    if (target && target.matches('div.popup')) {
+      imageModal.style.display = 'none';
+      bigImage.setAttribute('src', '');
+    }
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (image);
+
+/***/ }),
+
 /***/ "./src/js/modules/modals.js":
 /*!**********************************!*\
   !*** ./src/js/modules/modals.js ***!
@@ -157,6 +196,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const modals = () => {
   function showModal(modal) {
+    calcScroll();
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
   }
@@ -216,6 +256,17 @@ const modals = () => {
         showModal(modal);
       }
     }, time);
+  }
+  function calcScroll() {
+    let div = document.createElement('div');
+    div.style.height = '50px';
+    div.style.width = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+    let scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
   }
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
   bindModal('.phone_link', '.popup', '.popup .popup_close');
@@ -14252,6 +14303,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/image */ "./src/js/modules/image.js");
+
 
 
 
@@ -14268,6 +14321,7 @@ window.addEventListener("DOMContentLoaded", () => {
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline');
   (0,_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
   (0,_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])('.container1', deadline);
+  (0,_modules_image__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 })();
 
